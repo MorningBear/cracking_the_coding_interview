@@ -64,6 +64,41 @@ public class Strings {
         Assert.assertEquals("! world Hello", reverseString(str));
     }
 
+    @Test
+    public void testSumUpString() {
+        char[] testArray = new char[3];
+        testArray[0] = 1;
+        testArray[1] = 64;
+        testArray[2] = 'C';
+
+        Assert.assertTrue(sumUpString(testArray, 'A'));
+        Assert.assertFalse(sumUpString(testArray, 'B'));
+    }
+
+    /**
+     * Given an array, determine if there exists 2 elements that sums up
+     * to a specific character, such as 's'
+     * Discuss the efficiency of the algorithm
+     *      O(n)
+     * @param array: Input array
+     * @param x: Input Character
+     * @return boolean
+     */
+    public boolean sumUpString(char[] array, char x) {
+        Hashtable<Character, Integer> hash = new Hashtable<Character, Integer>();
+        for (int i = 0; i < array.length; i++) {
+            hash.put(array[i], i);
+        }
+
+        for (int i = 0; i < array.length; i++) {
+            if (hash.get((char)(x - array[i])) != null && hash.get((char)(x - array[i])) != i) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     /**
      * Write a function that reverses the order of the words in a string.
      * Example:
@@ -71,10 +106,12 @@ public class Strings {
      *      new_str = "try. no is there not, do or Do".
      * Assume that all words are space delimited and treat punctuation
      * the same as letters.
+     * @param str: Input String
+     * @return String
      */
-
     public String reverseString(String str) {
         String new_str = "";
+
         Hashtable<Integer, String> wordsHash = new Hashtable<Integer, String>();
 
         String word = "";
